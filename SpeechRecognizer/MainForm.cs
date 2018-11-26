@@ -16,7 +16,7 @@ namespace SpeechRecognizer
         {
             InitializeComponent();
 
-            SpeechRecognize Recognizer = new SpeechRecognize();
+          //  SpeechRecognize Recognizer = new SpeechRecognize();
 
         }
 

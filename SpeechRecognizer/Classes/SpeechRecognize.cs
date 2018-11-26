@@ -13,40 +13,33 @@ using Google.Cloud.Storage.V1;
 using Grpc.Auth;
 using SpeechRecognizer.GlobalHook;
 
-namespace SpeechRecognizer
+namespace SpeechRecognizer.Classes
 {
 
 
     public class SpeechRecognize
     {
-        [DllImport("user32.dll")]
-        private static extern short GetAsyncKeyState(System.Windows.Forms.Keys vKey);
+
 
         [DllImport("winmm.dll", EntryPoint = "mciSendStringA", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
         private static extern int mciSendString(string lpstrCommand, string lpstrReturnString, int uReturnLength, int hwndCallback);
 
 
+        private GoogleCredential _credential;
+        private Grpc.Core.Channel _channel;
+
+
         public SpeechRecognize()
         {
 
-            Thread.Sleep(3000);
-            SendString("ışınlanmak ğğğğ");
-            //GlobalHook.HookManager.KeyDown += new System.Windows.Forms.KeyEventHandler(KeyPresshandler);
 
 
-           // object obj = StreamingMicRecognizeAsync(3);
-
-
-        }
-        public void AuthImplicit(string projectId)
-        {
-            // If you don't specify credentials when constructing the client, the
-            // client library will look for credentials in the environment.
 
 
         }
 
-        async Task<object> StreamingMicRecognizeAsync(int seconds)
+
+        public async Task<object> StreamingMicRecognizeAsync()
         {
             if (NAudio.Wave.WaveIn.DeviceCount < 1)
             {
@@ -104,7 +97,7 @@ namespace SpeechRecognizer
                         }
                     }
                 }
-                
+
                 return val;
             });
             // Read from the microphone and stream to API.
@@ -129,7 +122,7 @@ namespace SpeechRecognizer
                 };
             waveIn.StartRecording();
             Console.WriteLine("Speak now.");
-            await Task.Delay(TimeSpan.FromSeconds(seconds));
+            await Task.Delay(TimeSpan.FromSeconds(3));
             // Stop recording and shut down.
             waveIn.StopRecording();
             lock (writeLock) writeMore = false;
