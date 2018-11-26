@@ -19,19 +19,23 @@ namespace SpeechRecognizer.Ui
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
+        private Form _realParent;
 
         private void Form1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-           
+
         }
         public TopPanel()
         {
             InitializeComponent();
+            this.Dock = DockStyle.Top;
+         
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            (Parent as Form).Close();
+            (this.Parent as Form).Close();
         }
 
         private void TopPanel_MouseDown(object sender, MouseEventArgs e)
@@ -39,7 +43,7 @@ namespace SpeechRecognizer.Ui
             if (e.Button == MouseButtons.Left)
             {
                 ReleaseCapture();
-                SendMessage(Parent.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                SendMessage(this.Parent.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
     }
