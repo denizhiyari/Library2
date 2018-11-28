@@ -137,7 +137,7 @@ namespace SpeechRecognizer.Classes
         {
 
             Keys key = e.KeyCode;
-            if (key == Keys.F7)
+            if (key == Keys.Control)
             {
 
             }
